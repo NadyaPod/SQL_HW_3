@@ -36,7 +36,7 @@ WHERE employee_name IS NULL;
 4. Вывести все зарплатные позиции меньше 2000 но работник по ним не назначен. (ЗП есть, но не понятно кто её получает.)
 ```
 ```sql
-SELECT salary.id, salary.monthly_salary, employees.employee_name
+SELECT salary.id, salary.monthly_salary
 FROM salary
 LEFT JOIN employee_salary ON employee_salary.salary_id = salary.id
 LEFT JOIN employees ON employee_salary.employee_id = employees.id
@@ -55,7 +55,7 @@ WHERE employee_salary.salary_id IS NULL;
 6. Вывести всех работников с названиями их должности.
 ```
 ```sql
-SELECT employees.employee_name, roles.role_name, employees.id, roles.id
+SELECT employees.employee_name, roles.role_name
 FROM roles_employee JOIN employees
 ON roles_employee.employee_id = employees.id
 JOIN roles
@@ -135,7 +135,7 @@ WHERE role_name LIKE '%Junior%';
 13. Вывести имена и зарплаты Middle специалистов
 ```
 ```sql
-SELECT employees.employee_name, salary.monthly_salary, employees.id
+SELECT employees.employee_name, salary.monthly_salary
 FROM employees JOIN employee_salary
 ON employees.id = employee_salary.employee_id
 JOIN salary
@@ -150,7 +150,7 @@ WHERE role_name LIKE '%Middle%';
 14. Вывести имена и зарплаты Senior специалистов.
 ```
 ```sql
-SELECT employees.employee_name, salary.monthly_salary, employees.id
+SELECT employees.employee_name, salary.monthly_salary
 FROM employees JOIN employee_salary
 ON employees.id = employee_salary.employee_id
 JOIN salary
@@ -226,9 +226,9 @@ WHERE role_name LIKE '%Middle JavaScript%';
 ```
 ```sql
 SELECT employees.employee_name, salary.monthly_salary, roles.role_name 
-FROM employees LEFT JOIN employee_salary
+FROM employees JOIN employee_salary
 ON employees.id = employee_salary.employee_id
-LEFT JOIN salary
+JOIN salary
 ON salary.id = employee_salary.salary_id
 JOIN roles_employee
 ON employees.id = roles_employee.employee_id
@@ -255,7 +255,7 @@ WHERE role_name LIKE '%Junior%QA%';
 21. Вывести среднюю зарплату всех Junior специалистов.
 ```
 ```sql
-SELECT avg(salary.monthly_salary)
+SELECT AVG(salary.monthly_salary)
 FROM employees JOIN employee_salary
 ON employees.id = employee_salary.employee_id
 JOIN salary
@@ -270,7 +270,7 @@ WHERE role_name LIKE '%Junior%';
 22. Вывести сумму зарплат JS разработчиков.
 ```
 ```sql
-SELECT sum(salary.monthly_salary)
+SELECT SUM(salary.monthly_salary)
 FROM employees JOIN employee_salary
 ON employees.id = employee_salary.employee_id
 JOIN salary
@@ -285,7 +285,7 @@ WHERE role_name LIKE '%JavaScript%';
 23. Вывести минимальную ЗП QA инженеров.
 ```
 ```sql
-SELECT min(salary.monthly_salary)
+SELECT MIN(salary.monthly_salary)
 FROM employees JOIN employee_salary
 ON employees.id = employee_salary.employee_id
 JOIN salary
@@ -300,7 +300,7 @@ WHERE role_name LIKE '%QA%';
 24. Вывести максимальную ЗП QA инженеров.
 ```
 ```sql
-SELECT max(salary.monthly_salary)
+SELECT MAX(salary.monthly_salary)
 FROM employees JOIN employee_salary
 ON employees.id = employee_salary.employee_id
 JOIN salary
@@ -315,7 +315,7 @@ WHERE role_name LIKE '%QA%';
 25. Вывести количество QA инженеров.
 ```
 ```sql
-SELECT count(employees.id)
+SELECT COUNT(employees.id)
 FROM employees JOIN employee_salary
 ON employees.id = employee_salary.employee_id
 JOIN salary
@@ -330,7 +330,7 @@ WHERE role_name LIKE '%QA%';
 26. Вывести количество Middle специалистов.
 ```
 ```sql
-SELECT count(employees.id)
+SELECT COUNT(employees.id)
 FROM employees JOIN employee_salary
 ON employees.id = employee_salary.employee_id
 JOIN salary
@@ -345,7 +345,7 @@ WHERE role_name LIKE '%Middle%';
 27. Вывести количество разработчиков.
 ```
 ```sql
-SELECT count(employees.id)
+SELECT COUNT(employees.id)
 FROM employees JOIN employee_salary
 ON employees.id = employee_salary.employee_id
 JOIN salary
@@ -360,7 +360,7 @@ WHERE role_name LIKE '%developer%';
 28. Вывести фонд (сумму) зарплаты разработчиков.
 ```
 ```sql
-SELECT sum(salary.monthly_salary)
+SELECT SUM(salary.monthly_salary)
 FROM employees JOIN employee_salary
 ON employees.id = employee_salary.employee_id
 JOIN salary
